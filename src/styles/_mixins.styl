@@ -1,0 +1,21 @@
+abstract-icon()
+  font-family 'b2b-connect-icons', sans-serif !important
+  speak none
+  font-style normal
+  font-weight normal
+  font-variant normal
+  text-transform none
+  line-height 1
+  box-sizing content-box
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+
+
+icon($name, $suppress-abstract = true, $font = 'b2b-connect-icons')
+  if $suppress-abstract != true
+    abstract-icon()
+
+  font-family $font !important
+  content map-get($icons, $name)

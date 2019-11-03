@@ -1,0 +1,31 @@
+i, button.icon {
+  @include abstract-icon();
+  display: inline-block;
+  &.--squire{
+    border-radius: 4px;
+    border-style: solid;
+  }
+  &.--circle{
+    border-radius: 50%;
+    border-style: none;
+  }
+}
+@each $size in $icon-sizes {
+  $size-in-px: #{$size}px;
+  i[size='#{$size}'], button.icon[size='#{$size}'] {
+    padding: 0;
+    width: $size-in-px;
+    height: $size-in-px;
+    line-height: #{$size - 2}px;
+    font-size: $size-in-px;
+    flex: 0 0 $size-in-px;
+  }
+}
+
+@each $name, $content in $icons {
+  i[name=#{$name}], button.icon[name=#{$name}] {
+    &::before {
+      content: $content
+    }
+  }
+}
