@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 var extract = require('extract-zip');
 
@@ -9,14 +9,12 @@ const zipDir = path.resolve(path.normalize(process.argv[2]));
 if (!zipDir) {
   throw Error('You must specify path to zip archive downloaded from icomoon.io');
 }
-console.log(zipDir);
 
 const config = JSON.parse(fs.readFileSync(path.join(rootDir, 'moon_icons.cfg.json'), 'utf8'));
 config.srcDir = path.resolve(path.normalize(config.srcDir));
 config.fontsDir = path.resolve(path.normalize(config.fontsDir));
 config.iconsVariablesFilePath = path.resolve(path.normalize(config.iconsVariablesFilePath));
 config.tempDir = path.join(path.resolve(path.normalize(config.tempDir)), 'extracted');
-console.log(config.tempDir);
 
 extract(zipDir, {dir: config.tempDir}, function (err) {
   if (err) {
@@ -43,11 +41,13 @@ extract(zipDir, {dir: config.tempDir}, function (err) {
   fs.copyFileSync(path.join(config.tempDir, 'fonts', 'icomoon.svg'), svgFontPath);
   fs.copyFileSync(path.join(config.tempDir, 'fonts', 'icomoon.ttf'), ttfFontPath);
   fs.copyFileSync(path.join(config.tempDir, 'fonts', 'icomoon.woff'), woffFontPath);
+  console.info('\x1b[33mFonts\x1b[30m: \x1b[32mcopied\x1b[30m.');
   const projectPath = path.join(rootDir, 'icomoon_project.json');
   if (fs.existsSync(projectPath)) {
     fs.unlinkSync(projectPath);
   }
   fs.copyFileSync(path.join(config.tempDir, 'selection.json'), projectPath);
+  console.info('\x1b[33mIcomoon.io project\x1b[30m: \x1b[32mcopied\x1b[30m.');
 
   const icomoonCSS = fs.readFileSync(path.join(config.tempDir, 'style.css'), 'utf8');
   const matches = Array.from(icomoonCSS.matchAll(/\.icon-([\w-]+):\w+.*?content(: [^;]+)/iusg));
@@ -67,6 +67,9 @@ extract(zipDir, {dir: config.tempDir}, function (err) {
   } else {
     fs.writeFileSync(config.iconsVariablesFilePath, replacement);
   }
+  console.info('\x1b[33mIcons content\x1b[30m: \x1b[32mcopied\x1b[30m.');
 
-  fs.rmdirSync(config.tempDir, {recursive: true});
+  fs.removeSync(config.tempDir);
+  console.info('\x1b[33mTemp folder\x1b[30m: \x1b[32mremoved\x1b[30m.');
+  console.info('\x1b[32mDone\x1b[30m.');
 });
