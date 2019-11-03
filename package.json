@@ -3,17 +3,42 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "directories": {
-    "bin": "./bin"
+  "description": "Provides pug templates and stylus styles for icons + icomoon.io integration commands for import sprites and fonts",
+  "keywords": [
+    "icomoon",
+    "pug",
+    "stylus",
+    "icon",
+    "loader",
+    "icomoon.io",
+    "template",
+    "style",
+    "sprite",
+    "font",
+    "icons font"
+  ],
+  "author": {
+    "name": "Ionov George",
+    "email": "newinventor20@gmail.com",
+    "url": "https://github.com/new-inventor"
+  },
+  "bin": {
+    "get_fonts_from_zip": "./bin/get_fonts_from_zip.js",
+    "get_sprite_from_zip": "./bin/get_sprite_from_zip.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/post_install.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/new-inventor/moon_icons.git"
   },
   "dependencies": {
-  },
-  "devDependencies": {
     "pug": "^2.0.4",
     "stylus": "^0.54.7"
+  },
+  "peerDependencies": {
+    "extract-zip": "^1.6.7",
+    "fs-extra": "^8.1.0"
   }
 }
