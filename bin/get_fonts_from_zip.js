@@ -2,7 +2,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
-var extract = require('extract-zip');
+const extract = require('extract-zip');
 
 const rootDir = process.cwd();
 const zipDir = path.resolve(path.normalize(process.argv[2]));
