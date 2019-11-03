@@ -62,7 +62,7 @@ extract(zipDir, {dir: config.tempDir}, function (err) {
   }
   replacement += '};';
   if (fs.existsSync(config.iconsVariablesFilePath)) {
-    projectCSS = projectCSS.replace(/$icons = \{.*?\};/iusg, replacement);
+    projectCSS = projectCSS.replace(/\$icons = \{.*?\};/iusg, replacement);
     fs.writeFileSync(config.iconsVariablesFilePath, projectCSS);
   } else {
     fs.writeFileSync(config.iconsVariablesFilePath, replacement);
