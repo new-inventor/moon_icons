@@ -1,31 +1,47 @@
-i, button.icon {
-  @include abstract-icon();
-  display: inline-block;
-  &.--squire{
-    border-radius: 4px;
-    border-style: solid;
-  }
-  &.--circle{
-    border-radius: 50%;
-    border-style: none;
-  }
-}
-@each $size in $icon-sizes {
-  $size-in-px: #{$size}px;
-  i[size='#{$size}'], button.icon[size='#{$size}'] {
-    padding: 0;
-    width: $size-in-px;
-    height: $size-in-px;
-    line-height: #{$size - 2}px;
-    font-size: $size-in-px;
-    flex: 0 0 $size-in-px;
-  }
-}
+@import _mixins.styl
 
-@each $name, $content in $icons {
-  i[name=#{$name}], button.icon[name=#{$name}] {
-    &::before {
-      content: $content
-    }
+$is_font ?= false
+$is_svg ?= false
+$icon_units ?= px
+$icon_sizes ?= (12, 16, 24)
+$icons ?= {}
+$font_name ?= 'icon_font'
+$font_path ?= 'fonts'
+
+i
+  abstract-icon();
+
+if $is_font
+  @font-face {
+    font-family: $font_name;
+    src: url('{$font_path}/{$font_name}.eot?f97f5y');
+    src: url('{$font_path}/{$font_name}.eot?f97f5y#iefix') format('embedded-opentype'),
+            url('{$font_path}/{$font_name}.ttf?f97f5y') format('truetype'),
+            url('{$font_path}/{$font_name}.woff?f97f5y') format('woff'),
+            url('{$font_path}/{$font_name}.svg?f97f5y#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
   }
-}
+
+  for $size in $icon_sizes
+    $size-in-units = unit($size, $icon_units);
+    i[size='#{$size}']
+      width: $size-in-units;
+      height: $size-in-units;
+      line-height: { $size - 2 }$icon_units;
+      font-size: $size-in-units;
+      flex: 0 0 $size-in-units;
+
+  for $content, $name in $icons
+    i[name = {$name}]
+    &::before
+      content $content
+
+if $is_svg
+  for $size in $icon_sizes
+    $size-in-units = unit($size, $icon_units);
+    i[size='#{$size}'], i[size='#{$size}'] > svg
+      width: $size-in-units;
+      height: $size-in-units;
+      flex: 0 0 $size-in-units;

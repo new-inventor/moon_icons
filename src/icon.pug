@@ -2,5 +2,5 @@ mixin iconFont(name, size)
     i(name=`${name}` size=`${size}`)&attributes(attributes)/
 
 mixin iconSVG(name, size, sprite)
-    svg.icon(size=`${size}`)&attributes(attributes)
+    svg.icon(size=`${size}` role=img)&attributes(attributes)
         use(xlink:href=`${sprite}#icon-${name}`)

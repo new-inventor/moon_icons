@@ -1,5 +1,14 @@
 abstract-icon()
-  font-family 'b2b-connect-icons', sans-serif !important
+  padding 0
+  display inline-block
+  box-sizing border-box
+
+abstract-icon-svg()
+  abstract-icon()
+
+abstract-icon-font()
+  abstract-icon()
+  font-family $font, sans-serif !important
   speak none
   font-style normal
   font-weight normal
@@ -13,9 +22,8 @@ abstract-icon()
   -moz-osx-font-smoothing grayscale
 
 
-icon($name, $suppress-abstract = true, $font = 'b2b-connect-icons')
+icon-font($name, $suppress-abstract = true, $font)
   if $suppress-abstract != true
-    abstract-icon()
+    abstract-icon-font($font)
 
-  font-family $font !important
-  content map-get($icons, $name)
+  content $icons[$name]

@@ -23,8 +23,7 @@
     "url": "https://github.com/new-inventor"
   },
   "bin": {
-    "get_fonts_from_zip": "./bin/get_fonts_from_zip.js",
-    "get_sprite_from_zip": "./bin/get_sprite_from_zip.js"
+    "moon_icons": "bin/moon_icons.js"
   },
   "scripts": {
     "postinstall": "node scripts/post_install.js"
@@ -34,11 +33,16 @@
     "url": "https://github.com/new-inventor/moon_icons.git"
   },
   "dependencies": {
+    "extract-zip": "^1.6.7",
+    "fs-extra": "^8.1.0",
     "pug": "^2.0.4",
-    "stylus": "^0.54.7"
+    "stylus": "^0.54.7",
+    "yargs": "^14.2.0"
   },
   "peerDependencies": {
     "extract-zip": "^1.6.7",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "svg4everybody": "^2.1.9",
+    "svgxuse": "^1.2.6"
   }
 }
